@@ -1,0 +1,13 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Android AAR (available in releases)
+android-demo/app/*.aar
+
+# iOS XCFramework zips (XCFramework itself is committed)
+ios-demo/*.xcframework.zip
+
+# macOS
+.DS_Store

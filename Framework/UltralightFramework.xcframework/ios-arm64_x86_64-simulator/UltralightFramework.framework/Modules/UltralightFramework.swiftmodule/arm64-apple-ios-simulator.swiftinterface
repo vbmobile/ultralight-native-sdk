@@ -1,0 +1,300 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3 effective-5.10 (swiftlang-6.3.0.123.5 clang-2100.0.123.102)
+// swift-module-flags: -target arm64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name UltralightFramework
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3
+@preconcurrency import CoreBluetooth
+import CoreLocation
+import Foundation
+import Swift
+@_exported import UltralightFramework
+import UserNotifications
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+@objc public protocol UltralightListener {
+  @objc func eventReceived(event: Swift.String, payload: Swift.String)
+}
+@objc @_inheritsConvenienceInitializers public class Ultralight : ObjectiveC.NSObject, CoreLocation.CLLocationManagerDelegate, CoreBluetooth.CBCentralManagerDelegate, CoreBluetooth.CBPeripheralDelegate, @unchecked Swift.Sendable {
+  weak public var delegate: (any UltralightFramework.UltralightListener)?
+  public func initialiseBeamsync(apiKey: Swift.String, completion: @escaping (Swift.Result<Swift.Void, any Swift.Error>) -> Swift.Void)
+  public func setPassengers(_ passengers: [UltralightFramework.Passenger]) throws
+  public func startBeamsync() -> Swift.String
+  public func stopBeamsync() async
+  @objc public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDiscover peripheral: CoreBluetooth.CBPeripheral, advertisementData: [Swift.String : Any], rssi RSSI: Foundation.NSNumber)
+  public func isBeamsyncActive() -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Passenger : Swift.Codable {
+  public var paxId: Swift.String?
+  public var language: Swift.String?
+  public var mrz: Swift.String?
+  public var boardingPasses: [Swift.String]
+  public var docPhotoBase64: Swift.String?
+  public var selfieBase64: Swift.String?
+  public var ePassport: Swift.Bool?
+  public var ebagtagId: Swift.String?
+  public var tag: Swift.String?
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(paxId: Swift.String, language: Swift.String?, mrz: Swift.String?, boardingPasses: [Swift.String], docPhotoBase64: Swift.String?, selfieBase64: Swift.String?, ePassport: Swift.Bool?, ebagtagId: Swift.String?, tag: Swift.String?)
+  @objc deinit
+}
+public struct MsgpackTimestamp : Swift.Equatable {
+  public var seconds: Swift.Int64
+  public var nanoseconds: Swift.UInt32
+  public init(seconds: Swift.Int64, nanoseconds: Swift.UInt32)
+  public static func == (a: UltralightFramework.MsgpackTimestamp, b: UltralightFramework.MsgpackTimestamp) -> Swift.Bool
+}
+extension Swift.Encoder {
+  public func isMsgpackEncoder() -> Swift.Bool
+  public func encodeMsgpackExt(extType: Swift.Int8, extData: Foundation.Data) throws
+}
+extension Swift.Decoder {
+  public func isMsgpackDecoder() -> Swift.Bool
+  public func getMsgpackExtType() throws -> Swift.Int8
+  public func getMsgpackExtData() throws -> Foundation.Data
+}
+public enum SignalRError : Swift.Error, Swift.Equatable, Swift.CustomStringConvertible {
+  case incompleteMessage
+  case invalidDataType
+  case failedToEncodeHandshakeRequest
+  case failedToDecodeResponseData
+  case expectedHandshakeResponse
+  case noHandshakeMessageReceived
+  case unsupportedHandshakeVersion
+  case handshakeError(Swift.String)
+  case connectionAborted
+  case negotiationError(Swift.String)
+  case failedToStartConnection(Swift.String)
+  case invalidOperation(Swift.String)
+  case unexpectedResponseCode(Swift.Int)
+  case invalidTextMessageEncoding
+  case httpTimeoutError
+  case invalidResponseType
+  case cannotSentUntilTransportConnected
+  case invalidData(Swift.String)
+  case eventSourceFailedToConnect
+  case eventSourceInvalidTransferFormat
+  case invalidUrl(Swift.String)
+  case invocationError(Swift.String)
+  case unsupportedTransport(Swift.String)
+  case messageBiggerThan2GB
+  case unexpectedMessageType(Swift.String)
+  case streamCancelled
+  case serverTimeout(Foundation.TimeInterval)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: UltralightFramework.SignalRError, b: UltralightFramework.SignalRError) -> Swift.Bool
+}
+public class HubConnectionBuilder {
+  public init()
+  public func withLogLevel(logLevel: UltralightFramework.LogLevel) -> UltralightFramework.HubConnectionBuilder
+  public func withLogHandler(logHandler: any UltralightFramework.LogHandler) -> UltralightFramework.HubConnectionBuilder
+  public func withHubProtocol(hubProtocol: UltralightFramework.HubProtocolType) -> UltralightFramework.HubConnectionBuilder
+  public func withServerTimeout(serverTimeout: Foundation.TimeInterval) -> UltralightFramework.HubConnectionBuilder
+  public func withKeepAliveInterval(keepAliveInterval: Foundation.TimeInterval) -> UltralightFramework.HubConnectionBuilder
+  public func withUrl(url: Swift.String) -> UltralightFramework.HubConnectionBuilder
+  public func withUrl(url: Swift.String, transport: UltralightFramework.HttpTransportType) -> UltralightFramework.HubConnectionBuilder
+  public func withUrl(url: Swift.String, options: UltralightFramework.HttpConnectionOptions) -> UltralightFramework.HubConnectionBuilder
+  public func withStatefulReconnect(bufferSize: Swift.Int) -> UltralightFramework.HubConnectionBuilder
+  public func withAutomaticReconnect() -> UltralightFramework.HubConnectionBuilder
+  public func withAutomaticReconnect(retryPolicy: any UltralightFramework.RetryPolicy) -> UltralightFramework.HubConnectionBuilder
+  public func withAutomaticReconnect(retryDelays: [Foundation.TimeInterval]) -> UltralightFramework.HubConnectionBuilder
+  public func build() -> UltralightFramework.HubConnection
+  @objc deinit
+}
+public enum HubProtocolType {
+  case json
+  case messagePack
+  public static func == (a: UltralightFramework.HubProtocolType, b: UltralightFramework.HubProtocolType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension UltralightFramework.MsgpackTimestamp : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension UltralightFramework.HubConnection {
+  public func on(_ methodName: Swift.String, handler: @escaping () async -> Swift.Void)
+  public func on<T>(_ methodName: Swift.String, handler: @escaping (T) async -> Swift.Void)
+  public func on<T1, T2>(_ methodName: Swift.String, handler: @escaping (T1, T2) async -> Swift.Void)
+  public func on<T1, T2, T3>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3) async -> Swift.Void)
+  public func on<T1, T2, T3, T4>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4) async -> Swift.Void)
+  public func on<T1, T2, T3, T4, T5>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5) async -> Swift.Void)
+  public func on<T1, T2, T3, T4, T5, T6>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6) async -> Swift.Void)
+  public func on<T1, T2, T3, T4, T5, T6, T7>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7) async -> Swift.Void)
+  public func on<T1, T2, T3, T4, T5, T6, T7, T8>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7, T8) async -> Swift.Void)
+  public func on<T1, T2, T3, T4, T5, T6, T7, T8, T9>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7, T8, T9) async -> Swift.Void)
+}
+public protocol StreamResult<Element> {
+  associatedtype Element
+  var stream: _Concurrency.AsyncThrowingStream<Self.Element, any Swift.Error> { get }
+  func cancel() async
+}
+public enum LogLevel : Swift.Int, Swift.Sendable {
+  case debug, information, warning, error
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol LogHandler : Swift.Sendable {
+  func log(logLevel: UltralightFramework.LogLevel, message: UltralightFramework.LogMessage, file: Swift.String, function: Swift.String, line: Swift.UInt)
+}
+public struct LogMessage : Swift.ExpressibleByStringInterpolation, Swift.CustomStringConvertible {
+  public init(stringLiteral value: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringInterpolation = Swift.DefaultStringInterpolation
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+public enum StringOrData : Swift.Sendable, Swift.Equatable {
+  case string(Swift.String)
+  case data(Foundation.Data)
+  public static func == (a: UltralightFramework.StringOrData, b: UltralightFramework.StringOrData) -> Swift.Bool
+}
+public struct StatefulReconnectOptions {
+  public var bufferSize: Swift.Int?
+}
+public struct HttpConnectionOptions {
+  public var logHandler: (any UltralightFramework.LogHandler)?
+  public var logLevel: UltralightFramework.LogLevel
+  public var accessTokenFactory: (@Sendable () async throws -> Swift.String?)?
+  public var httpClient: (any UltralightFramework.HttpClient)?
+  public var transport: UltralightFramework.HttpTransportType?
+  public var skipNegotiation: Swift.Bool
+  public var headers: [Swift.String : Swift.String]?
+  public var timeout: Foundation.TimeInterval?
+  public var logMessageContent: Swift.Bool?
+  public init()
+}
+@_hasMissingDesignatedInitializers public actor HubConnection {
+  public func start() async throws
+  public func stop() async
+  public func send(method: Swift.String, arguments: Any...) async throws
+  public func invoke(method: Swift.String, arguments: Any...) async throws
+  public func invoke<TReturn>(method: Swift.String, arguments: Any...) async throws -> TReturn
+  public func stream<Element>(method: Swift.String, arguments: Any...) async throws -> any UltralightFramework.StreamResult<Element>
+  public func off(method: Swift.String)
+  public func onClosed(handler: @escaping ((any Swift.Error)?) async -> Swift.Void)
+  public func onReconnecting(handler: @escaping ((any Swift.Error)?) async -> Swift.Void)
+  public func onReconnected(handler: @escaping () async -> Swift.Void)
+  public func state() -> UltralightFramework.HubConnectionState
+  @objc deinit
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  @_semantics("defaultActor") nonisolated final public var unownedExecutor: _Concurrency.UnownedSerialExecutor {
+    get
+  }
+}
+public enum HubConnectionState : Swift.Sendable {
+  case Stopped
+  case Connecting
+  case Connected
+  case Reconnecting
+  public static func == (a: UltralightFramework.HubConnectionState, b: UltralightFramework.HubConnectionState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct HttpTransportType : Swift.OptionSet {
+  public let rawValue: Swift.Int
+  public static let none: UltralightFramework.HttpTransportType
+  public static let webSockets: UltralightFramework.HttpTransportType
+  public static let serverSentEvents: UltralightFramework.HttpTransportType
+  public static let longPolling: UltralightFramework.HttpTransportType
+  public init(rawValue: Swift.Int)
+  public typealias ArrayLiteralElement = UltralightFramework.HttpTransportType
+  public typealias Element = UltralightFramework.HttpTransportType
+  public typealias RawValue = Swift.Int
+}
+public enum TransferFormat : Swift.Int, Swift.Codable, Swift.Sendable {
+  case text
+  case binary
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum MessageType : Swift.Int, Swift.Codable {
+  case invocation
+  case streamItem
+  case completion
+  case streamInvocation
+  case cancelInvocation
+  case ping
+  case close
+  case ack
+  case sequence
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension UltralightFramework.HubConnection {
+  public func on<Result>(_ methodName: Swift.String, handler: @escaping () async -> Result)
+  public func on<T, Result>(_ methodName: Swift.String, handler: @escaping (T) async -> Result)
+  public func on<T1, T2, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2) async -> Result)
+  public func on<T1, T2, T3, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3) async -> Result)
+  public func on<T1, T2, T3, T4, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4) async -> Result)
+  public func on<T1, T2, T3, T4, T5, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5) async -> Result)
+  public func on<T1, T2, T3, T4, T5, T6, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6) async -> Result)
+  public func on<T1, T2, T3, T4, T5, T6, T7, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7) async -> Result)
+  public func on<T1, T2, T3, T4, T5, T6, T7, T8, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7, T8) async -> Result)
+  public func on<T1, T2, T3, T4, T5, T6, T7, T8, T9, Result>(_ methodName: Swift.String, handler: @escaping (T1, T2, T3, T4, T5, T6, T7, T8, T9) async -> Result)
+}
+public enum HttpMethod : Swift.String, Swift.Sendable {
+  case GET, PUT, PATCH, POST, DELETE
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct HttpRequest : Swift.Sendable {
+  public init(method: UltralightFramework.HttpMethod, url: Swift.String, content: UltralightFramework.StringOrData? = nil, responseType: UltralightFramework.TransferFormat? = nil, headers: [Swift.String : Swift.String]? = nil, timeout: Foundation.TimeInterval? = nil)
+}
+public struct HttpResponse {
+  public let statusCode: Swift.Int
+}
+public protocol HttpClient : Swift.Sendable {
+  func send(request: UltralightFramework.HttpRequest) async throws -> (UltralightFramework.StringOrData, UltralightFramework.HttpResponse)
+}
+public protocol RetryPolicy : Swift.Sendable {
+  func nextRetryInterval(retryContext: UltralightFramework.RetryContext) -> Foundation.TimeInterval?
+}
+public struct RetryContext {
+  public let retryCount: Swift.Int
+  public let elapsed: Foundation.TimeInterval
+  public let retryReason: (any Swift.Error)?
+}
+extension UltralightFramework.MsgpackTimestamp : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension UltralightFramework.HubProtocolType : Swift.Equatable {}
+extension UltralightFramework.HubProtocolType : Swift.Hashable {}
+extension UltralightFramework.LogLevel : Swift.Equatable {}
+extension UltralightFramework.LogLevel : Swift.Hashable {}
+extension UltralightFramework.LogLevel : Swift.RawRepresentable {}
+extension UltralightFramework.HubConnectionState : Swift.Equatable {}
+extension UltralightFramework.HubConnectionState : Swift.Hashable {}
+extension UltralightFramework.TransferFormat : Swift.Equatable {}
+extension UltralightFramework.TransferFormat : Swift.Hashable {}
+extension UltralightFramework.TransferFormat : Swift.RawRepresentable {}
+extension UltralightFramework.MessageType : Swift.Equatable {}
+extension UltralightFramework.MessageType : Swift.Hashable {}
+extension UltralightFramework.MessageType : Swift.RawRepresentable {}
+extension UltralightFramework.HttpMethod : Swift.Equatable {}
+extension UltralightFramework.HttpMethod : Swift.Hashable {}
+extension UltralightFramework.HttpMethod : Swift.RawRepresentable {}

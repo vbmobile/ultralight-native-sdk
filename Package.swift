@@ -16,7 +16,7 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "UltralightFramework",
-            path: "Framworks/UltralightFramework.xcframework"
+            path: "Framework/UltralightFramework.xcframework"
         )
     ]
 )

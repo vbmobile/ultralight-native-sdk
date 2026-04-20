@@ -20,7 +20,7 @@ import os
   public func initialiseBeamsync(apiKey: Swift.String, completion: @escaping (Swift.Result<Swift.Void, any Swift.Error>) -> Swift.Void)
   public func setPassengers(_ passengers: [UltralightFramework.Passenger]) throws
   public func startBeamsync() -> Swift.String
-  public func stopBeamsync() async
+  public func stopBeamsync()
   @objc public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
   @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDiscover peripheral: CoreBluetooth.CBPeripheral, advertisementData: [Swift.String : Any], rssi RSSI: Foundation.NSNumber)
   public func isBeamsyncActive() -> Swift.Bool

@@ -340,8 +340,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:19UltralightFramework0A0C12stopBeamsyncyyYaF",
-            "mangledName": "$s19UltralightFramework0A0C12stopBeamsyncyyYaF",
+            "usr": "s:19UltralightFramework0A0C12stopBeamsyncyyF",
+            "mangledName": "$s19UltralightFramework0A0C12stopBeamsyncyyF",
             "moduleName": "UltralightFramework",
             "declAttributes": [
               "AccessControl"

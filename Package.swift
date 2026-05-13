@@ -10,13 +10,14 @@ let package = Package(
     products: [
         .library(
             name: "UltralightFramework",
-            targets: ["UltralightFramework"]
+            targets: ["UltralightFrameworkBinary"]
         )
     ],
     targets: [
         .binaryTarget(
-            name: "UltralightFramework",
-            path: "Framework/UltralightFramework.xcframework"
-        )
+            name: "UltralightFrameworkBinary",
+            url: "https://vbmobileidstorage.blob.core.windows.net/ios/UltralightFramework/UltralightFramework-2.6.181.zip",
+            checksum: "482ed59a42c318ee979f3d79802fa1bf34b5d7b7bd754366a165a39bcb25375b"
+        ),
     ]
 )

@@ -16,8 +16,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "UltralightFrameworkBinary",
-            url: "https://vbmobileidstorage.blob.core.windows.net/ios/UltralightFramework/UltralightFramework-3.3.3.zip",
-            checksum: "4458cb1e599f3c060e661da6ddc8b03e3858139dd749109d748c3cd4d40e3ef4"
+            url: "https://vbmobileidstorage.blob.core.windows.net/ios/UltralightFramework/UltralightFramework-3.3.4.zip",
+            checksum: "8d221b0a47f2e6d1782dab4d1465d9743512f6cba1d89f374c6e20cdd6e90a03"
         ),
     ]
 )
